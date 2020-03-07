@@ -1,0 +1,51 @@
+/**index.wxss**/
+
+page {
+  background: #e4f4ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.add-layout, .record-item {
+  margin-top: 40rpx;
+  height: 140rpx;
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: all 300ms ease;
+}
+
+.add-btn {
+  font-size: 32rpx;
+  color: #007aff;
+  background-color: white;
+  background-size: cover;
+  text-align: center;
+}
+
+.record-item {
+  height: auto;
+  padding: 0 0 0 40rpx;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.record-item-title {
+  font-size: 34rpx;
+  color: #007aff;
+}
+
+.record-item-date {
+  margin-top: 4px;
+  font-size: 28rpx;
+  color: #3a3a3a;
+}

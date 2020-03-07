@@ -1,0 +1,31 @@
+<!--miniprogram/pages/addRecord.wxml-->
+<view class="container">
+
+  <view class="title-layout">
+    <input placeholder="请输入标题" class="title-input" maxlength="48" bindinput="inputTitle"></input>
+  </view>
+
+  <view class="content-layout">
+    <textarea placeholder="请输入..." class="content-input" maxlength="1000" bindinput="inputContent"></textarea>
+  </view>
+
+  <!-- 日期/时间 -->
+  <view class="date-box">
+    <text class="titleBox">选择时间</text>
+    <view class="flex-space input-Box">
+      <!-- 选择日期 -->
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange" class="flex-space picker">
+        <text>{{date}}</text>
+        <text class="iconfont iconfont-jiantou" style="margin: 0 10px;wxcs_style_margin: 0 20rpx;font-size: 24rpx;"></text>
+      </picker>
+      <view class="line_a"></view>
+      <!-- 选择时间 -->
+      <picker mode="time" value="{{time}}" bindchange="bindTimeChange" class="flex-space picker">
+        <text >{{ time }}</text>
+        <text class="iconfont iconfont-jiantou" style="margin: 0 10px;wxcs_style_margin: 0 20rpx;font-size: 24rpx;"></text>
+      </picker>
+    </view>
+  </view>
+
+  <button class="btn_confirm" catchtap="onSendRecord">保 存</button>
+</view>

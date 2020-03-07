@@ -1,0 +1,19 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="add-layout">
+    <button class="add-btn" bindtap="onGoToAddRecord">添加记录</button>
+  </view>
+
+  <block wx:for="{{recordList}}" wx:key="xx">
+    <view class="record-item" bindtap="onOpenDeatils" data-value="{{item}}">
+      <view class="record-item-title">
+        <text>{{item.title}}</text>
+      </view>
+      <view class="record-item-date">
+        <text>{{item.time}}</text>
+      </view>
+    </view>
+  </block>
+
+</view>
