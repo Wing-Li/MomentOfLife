@@ -38,63 +38,47 @@ Page({
     })
   },
 
-  onOpenDeatils: function (e) {
+  onLongOpt(e) {
+    var record = e.currentTarget.dataset.value
+    wx.showActionSheet({
+      itemList: ["编辑", "删除",],
+      success: res => {
+        console.log(res.tapIndex)
+        switch (res.tapIndex) {
+          case 0: { // 编辑
+            this._onOpenDetails(record._id)
+            break
+          }
+          case 1: { //删除
+            this._deleteRecord(record)
+            break
+          }
+        }
+      }
+    })
+  },
 
+  _onOpenDetails(recordId = undefined) {
+    wx.navigateTo({
+      url: '/pages/addRecord/addRecord?recordId=' + recordId,
+    })
+  },
+
+  _deleteRecord(record) {
+    wx.showModal({
+      title: '删除',
+      content: '您确定要删除 “' + record.title + '” 吗？' ,
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } 
+      }
+    })
   },
 
   onGoToAddRecord(){
     wx.navigateTo({
-      url: '/pages/addRecord/addRecord',
-    })
-  },
-
-  // 上传图片
-  doUpload: function () {
-    // 选择图片
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-
-        wx.showLoading({
-          title: '上传中',
-        })
-
-        const filePath = res.tempFilePaths[0]
-        
-        // 上传图片
-        const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
-        wx.cloud.uploadFile({
-          cloudPath,
-          filePath,
-          success: res => {
-            console.log('[上传文件] 成功：', res)
-
-            app.globalData.fileID = res.fileID
-            app.globalData.cloudPath = cloudPath
-            app.globalData.imagePath = filePath
-            
-            wx.navigateTo({
-              url: '../storageConsole/storageConsole'
-            })
-          },
-          fail: e => {
-            console.error('[上传文件] 失败：', e)
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-          },
-          complete: () => {
-            wx.hideLoading()
-          }
-        })
-
-      },
-      fail: e => {
-        console.error(e)
-      }
+      url: '/pages/addRecord/addRecord'
     })
   },
 
