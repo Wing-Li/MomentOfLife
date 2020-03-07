@@ -18,19 +18,21 @@ page {
 }
 
 .content-layout {
-  margin: 32rpx 16rpx;
+  width: 100%;
 }
 
 .content-input {
+  width: auto;
+  height: 420rpx;
+  margin: 32rpx 0 auto;
   background: #fdfdfd;
-  border-radius: 20rpx;
   padding: 16rpx;
   font-size: 32rpx;
 }
 
 .date-box {
   width: 100%;
-  margin: 0 0 30rpx;
+  margin: 0 30rpx;
 }
 
 .titleBox {
