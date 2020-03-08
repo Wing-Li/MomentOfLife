@@ -2,11 +2,11 @@
 <view class="container">
 
   <view class="title-layout">
-    <input placeholder="请输入标题" class="title-input" maxlength="48" bindinput="inputTitle"></input>
+    <input placeholder="请输入标题" class="title-input" value="{{currentTitle}}" maxlength="48" bindinput="inputTitle"></input>
   </view>
 
   <view class="content-layout">
-    <textarea placeholder="请输入..." class="content-input" maxlength="1000" bindinput="inputContent"></textarea>
+    <textarea placeholder="请输入..." class="content-input" value="{{currentContent}}" maxlength="1000" bindinput="inputContent"></textarea>
   </view>
 
   <!-- 日期/时间 -->

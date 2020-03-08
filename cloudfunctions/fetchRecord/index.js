@@ -10,11 +10,17 @@ const db = cloud.database()
  * 获取个人记录列表
  * 请求参数
  * 
+ * recordId : 如果传了 id ，则获取单个 
+ * 
  * startIndex (int): 分页查询，从第几个开始
  * count (int)： 每次查询多少个
  */
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
+
+  if (event.recordId) {
+    return await db.collection('Record').doc(event.recordId).get()
+  }
 
   var list = []
 

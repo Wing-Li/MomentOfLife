@@ -5,8 +5,8 @@
     <button class="add-btn" bindtap="onGoToAddRecord">添加记录</button>
   </view>
 
-  <block wx:for="{{recordList}}" wx:key="xx">
-    <view class="record-item" bindtap="onOpenDetails" bindlongtap="onLongOpt" data-value="{{item}}">
+  <block wx:for="{{recordList}}" wx:key="xx" wx:index="index">
+    <view class="record-item" bindtap="onOpenDetails" bindlongtap="onLongOpt" data-value="{{item}}" data-index="{{index}}">
       <view class="record-item-title">
         <text>{{item.title}}</text>
       </view>

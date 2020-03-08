@@ -19,7 +19,42 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if (options.recordId) {
+      this._fetchRecord(options.recordId)
+    }
+  },
 
+  _fetchRecord(recordId) {
+    wx.showLoading({
+      title: 'Loading...',
+    })
+
+    // 调用云函数
+    wx.cloud.callFunction({
+      name: 'fetchRecord',
+      data: {
+        recordId: recordId
+      },
+      success: res => {
+        var record = res.result.data
+        console.log('获取单个记录：', record)
+        this.setData({
+          currentTitle: record.title,
+          currentContent: record.content,
+          date: record.time.substring(0, 11),
+          time: record.time.substring(11, record.time.length)
+        })
+        wx.hideLoading()
+      },
+      fail: err => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '数据获取失败',
+          icon: 'none'
+        })
+        console.error('获取记录列表失败。', err)
+      }
+    })
   },
 
   onSendRecord() {

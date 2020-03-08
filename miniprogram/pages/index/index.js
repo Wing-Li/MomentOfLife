@@ -8,7 +8,7 @@ Page({
 
   onLoad: function() {
     this.loadRecordData()
-   
+
   },
 
   loadRecordData() {
@@ -40,43 +40,83 @@ Page({
 
   onLongOpt(e) {
     var record = e.currentTarget.dataset.value
+    var index = e.currentTarget.dataset.index
     wx.showActionSheet({
-      itemList: ["编辑", "删除",],
+      itemList: ["编辑", "删除", ],
       success: res => {
         console.log(res.tapIndex)
         switch (res.tapIndex) {
-          case 0: { // 编辑
-            this._onOpenDetails(record._id)
-            break
-          }
-          case 1: { //删除
-            this._deleteRecord(record)
-            break
-          }
+          case 0:
+            { // 编辑
+              this._openDetails(record)
+              break
+            }
+          case 1:
+            { //删除
+              this._deleteRecordDialog(record, index)
+              break
+            }
         }
       }
     })
   },
 
-  _onOpenDetails(recordId = undefined) {
+  onOpenDetails(e) {
+    this._openDetails(e.currentTarget.dataset.value)
+  },
+
+  _openDetails(record) {
     wx.navigateTo({
-      url: '/pages/addRecord/addRecord?recordId=' + recordId,
+      url: '/pages/addRecord/addRecord?recordId=' + record._id,
     })
   },
 
-  _deleteRecord(record) {
+  _deleteRecordDialog(record, index) {
     wx.showModal({
       title: '删除',
-      content: '您确定要删除 “' + record.title + '” 吗？' ,
-      success (res) {
+      content: '您确定要删除 “' + record.title + '” 吗？',
+      success: res => {
         if (res.confirm) {
           console.log('用户点击确定')
-        } 
+          this._deleteRecord(record, index)
+        }
       }
     })
   },
 
-  onGoToAddRecord(){
+  _deleteRecord(record, index) {
+    wx.showLoading({
+      title: 'delete...',
+      icon: 'none'
+    })
+
+    wx.cloud.callFunction({
+      name: 'deleteRecord',
+      data: {
+        recordId: record._id
+      },
+      success: res => {
+        wx.showToast({
+          title: '删除成功',
+          icon: 'success'
+        })
+        this.data.recordList.splice(index, 1)
+        this.setData({
+          recordList: this.data.recordList
+        })
+        wx.hideLoading()
+      },
+      fail: err => {
+        wx.showToast({
+          title: '删除失败',
+          icon: 'none'
+        })
+        wx.hideLoading()
+      }
+    })
+  },
+
+  onGoToAddRecord() {
     wx.navigateTo({
       url: '/pages/addRecord/addRecord'
     })
